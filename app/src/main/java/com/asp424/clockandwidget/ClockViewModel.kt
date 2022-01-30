@@ -8,8 +8,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.asp424.clockandwidget.ui.theme.g
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class ClockViewModel(context: Context) : ViewModel() {
     @SuppressLint("StaticFieldLeak")
@@ -33,7 +35,9 @@ class ClockViewModel(context: Context) : ViewModel() {
         if (t("ss") % 5 == 0)
             viewModelScope.launch {
                 if (playOff.value!!)
-                playSound().start()
+                    withContext(Dispatchers.IO){
+                        playSound().start()
+                    }
                 g = t("ss")
                 var v = 230
                 while (v != 1500) {
