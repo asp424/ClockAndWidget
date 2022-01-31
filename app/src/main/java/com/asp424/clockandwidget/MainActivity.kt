@@ -32,53 +32,5 @@ class MainActivity : ComponentActivity() {
         }
         setContent {Clock(viewModel = vm, activity = this)}
     }
-    @Composable
-    fun Plus(vm: VM) {
-        val number: Int? by vm.number.observeAsState()
-        Column(Modifier.fillMaxSize(),
-        horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center
-            ) {
-            Text(text = number.toString())
-            Button(onClick = {vm.add()}) {
-                Text(text = "+")
-            }
-        }
-    }
 }
-class VM: ViewModel(){
-    private val scope = viewModelScope
-    val number = MutableLiveData(0)
-    fun add() = scope.launch{
-        number.value = number.value!! + 1
-    }
-}
-
-
-
-
-
-
-/*
-
-class ExampleAppWidgetProvider : AppWidgetProvider() {
-    override fun onUpdate(
-        context: Context,
-        appWidgetManager: AppWidgetManager,
-        appWidgetIds: IntArray
-    ) {
-        for (appWidgetId in appWidgetIds) {
-            val intent = Intent(context, MainActivity::class.java)
-            val pendingIntent = PendingIntent.getActivity(context, 0, intent, 0)
-            val views = RemoteViews(context.packageName, R.layout.compose)
-            views.setOnClickPendingIntent(R.id.compose_view, pendingIntent)
-            appWidgetManager.updateAppWidget(appWidgetId, views)
-        }
-    }
-}
-
-
-
-*/
-
 
